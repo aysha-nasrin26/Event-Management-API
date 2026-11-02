@@ -1,0 +1,20 @@
+services:
+  db:
+    image: postgres:16
+    container_name: event-management-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Your_Password
+      POSTGRES_DB: Event
+
+  api:
+    build: .
+    container_name: event-management-api
+    restart: unless-stopped
+    ports:
+      - "8001:8000"
+    env_file:
+      - .env
+    depends_on:
+      - db  
